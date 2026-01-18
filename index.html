@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManMatters User Survey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #4ade80;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        /* Card styles */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Question styles */
+        .question {
+            margin-bottom: 30px;
+        }
+        
+        .question:last-child {
+            margin-bottom: 0;
+        }
+        
+        .question-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .question-hint {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        
+        /* Radio and checkbox styles */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .option-item.selected {
+            border-color: #667eea;
+            background: #eef2ff;
+        }
+        
+        .option-item input[type="radio"],
+        .option-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+        
+        .option-item label {
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        /* Grid options for shorter lists */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Input styles */
+        .text-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .text-input::placeholder {
+            color: #aaa;
+        }
+        
+        /* Small inputs in a row */
+        .input-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group {
+            flex: 1;
+        }
+        
+        .input-group label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+            display: block;
+        }
+        
+        /* Table styles */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px;
+        }
+        
+        .data-table thead {
+            background: #f8f9fa;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 12px 10px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            white-space: nowrap;
+        }
+        
+        .data-table td {
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+        
+        .data-table tbody tr:hover {
+            background: #f8fafc;
+        }
+        
+        .data-table .product-name {
+            font-weight: 600;
+            color: #667eea;
+            white-space: nowrap;
+        }
+        
+        .table-dropdown {
+            padding: 8px 10px;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            font-size: 12px;
+            width: 100%;
+            min-width: 100px;
+            cursor: pointer;
+        }
+        
+        .table-dropdown:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .table-input {
+            padding: 8px 10px;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            font-size: 12px;
+            width: 100%;
+            min-width: 80px;
+        }
+        
+        .table-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        /* Tracking table */
+        .tracking-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        .tracking-table th,
+        .tracking-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tracking-table th {
+            font-weight: 600;
+            color: #555;
+            background: #f8f9fa;
+        }
+        
+        .tracking-table select {
+            padding: 8px 10px;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            font-size: 13px;
+            min-width: 120px;
+        }
+        
+        /* Category header in options */
+        .category-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .category-header:first-child {
+            margin-top: 0;
+        }
+        
+        /* Optional comment box */
+        .optional-comment {
+            margin-top: 15px;
+        }
+        
+        .optional-comment summary {
+            font-size: 13px;
+            color: #667eea;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .optional-comment textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 10px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .optional-comment textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        /* Hidden section */
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        /* Buttons */
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd6;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #f8f9ff;
+        }
+        
+        .btn-success {
+            background: #4ade80;
+            color: white;
+            border: none;
+        }
+        
+        .btn-success:hover {
+            background: #3cc96f;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Empty state for tables */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 14px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        /* Success screen */
+        .success-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+        
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        
+        .success-message {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-overlay.active {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid white;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Multi-select limit note */
+        .limit-note {
+            font-size: 12px;
+            color: #e65100;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress -->
+        <div class="progress-text">Section <span id="currentSection">1</span> of 5</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 20%;"></div>
+        </div>
+        
+        <!-- Section 1: Health & Fitness Profile -->
+        <div class="section active" id="section1">
+            <div class="card">
+                <div class="section-title">Section 1: Health & Fitness Profile</div>
+                <div class="section-subtitle">Help us understand your current health and fitness habits</div>
+                
+                <!-- Q1: Age -->
+                <div class="question">
+                    <label class="question-label">1. Which age group do you fall into?</label>
+                    <div class="options-grid">
+                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                            <input type="radio" name="s1_age" value="Under 30">
+                            <label>Under 30</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                            <input type="radio" name="s1_age" value="30-39">
+                            <label>30-39</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                            <input type="radio" name="s1_age" value="40-49">
+                            <label>40-49</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                            <input type="radio" name="s1_age" value="50+">
+                            <label>50+</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 & Q3: Height and Weight -->
+                <div class="question">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label class="question-label">2. What is your height?</label>
+                            <input type="text" class="text-input" name="s1_height" placeholder="e.g., 5'10&quot; or 178 cm">
+                        </div>
+                        <div class="input-group">
+                            <label class="question-label">3. What is your weight?</label>
+                            <input type="text" class="text-input" name="s1_weight" placeholder="e.g., 75 kg or 165 lbs">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4: Physical Activity -->
+                <div class="question">
+                    <label class="question-label">4. How physically active are you in a typical week?</label>
+                    <div class="options-list">
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                            <input type="radio" name="s1_activity" value="Not active">
+                            <label>Not active (little to no exercise)</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                            <input type="radio" name="s1_activity" value="Light">
+                            <label>Light (1-2 times per week)</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                            <input type="radio" name="s1_activity" value="Moderate">
+                            <label>Moderate (2-4 times per week)</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                            <input type="radio" name="s1_activity" value="High">
+                            <label>High (4+ times per week)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5: Diet Discipline -->
+                <div class="question">
+                    <label class="question-label">5. How would you describe your diet discipline?</label>
+                    <div class="options-list">
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                            <input type="radio" name="s1_diet" value="Very disciplined">
+                            <label>Very disciplined — I track macros/calories and follow a structured plan</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                            <input type="radio" name="s1_diet" value="Moderately disciplined">
+                            <label>Moderately disciplined — I'm mindful of what I eat but don't track strictly</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                            <input type="radio" name="s1_diet" value="Somewhat disciplined">
+                            <label>Somewhat disciplined — I try to eat healthy but inconsistent</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                            <input type="radio" name="s1_diet" value="Not very disciplined">
+                            <label>Not very disciplined — I eat what's convenient/available</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q6: Tracking -->
+                <div class="question">
+                    <label class="question-label">6. Do you track any of the following? If yes, how?</label>
+                    <div class="table-container">
+                        <table class="tracking-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Do you track?</th>
+                                    <th>How do you track?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Workouts / exercises</td>
+                                    <td>
+                                        <select name="s1_track_workouts">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_workouts_how">
+                                            <option value="">Select...</option>
+                                            <option value="App">App</option>
+                                            <option value="Notebook">Notebook</option>
+                                            <option value="Mental note">Mental note</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Calories / food intake</td>
+                                    <td>
+                                        <select name="s1_track_calories">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_calories_how">
+                                            <option value="">Select...</option>
+                                            <option value="App">App</option>
+                                            <option value="Notebook">Notebook</option>
+                                            <option value="Mental note">Mental note</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Water intake</td>
+                                    <td>
+                                        <select name="s1_track_water">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_water_how">
+                                            <option value="">Select...</option>
+                                            <option value="App">App</option>
+                                            <option value="Notebook">Notebook</option>
+                                            <option value="Mental note">Mental note</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sleep</td>
+                                    <td>
+                                        <select name="s1_track_sleep">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_sleep_how">
+                                            <option value="">Select...</option>
+                                            <option value="App">App</option>
+                                            <option value="Wearable">Wearable</option>
+                                            <option value="Mental note">Mental note</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>
+                                        <select name="s1_track_weight">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_weight_how">
+                                            <option value="">Select...</option>
+                                            <option value="Smart scale">Smart scale</option>
+                                            <option value="Regular scale">Regular scale</option>
+                                            <option value="Mental note">Mental note</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Steps / activity</td>
+                                    <td>
+                                        <select name="s1_track_steps">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_steps_how">
+                                            <option value="">Select...</option>
+                                            <option value="Phone">Phone</option>
+                                            <option value="Wearable">Wearable</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Heart rate / vitals</td>
+                                    <td>
+                                        <select name="s1_track_heartrate">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="s1_track_heartrate_how">
+                                            <option value="">Select...</option>
+                                            <option value="Wearable">Wearable</option>
+                                            <option value="App">App</option>
+                                            <option value="Manual check">Manual check</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Q7: Overall Approach -->
+                <div class="question">
+                    <label class="question-label">7. How would you describe your overall approach to health and fitness?</label>
+                    <div class="options-list">
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                            <input type="radio" name="s1_approach" value="Core identity">
+                            <label>It's a core part of my identity — I prioritize it daily</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                            <input type="radio" name="s1_approach" value="Actively improving">
+                            <label>I'm actively working on improving my health/fitness</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                            <input type="radio" name="s1_approach" value="Struggle with consistency">
+                            <label>I care about it but struggle with consistency</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                            <input type="radio" name="s1_approach" value="Not a priority">
+                            <label>I know I should care more but it's not a priority right now</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <details class="optional-comment">
+                    <summary>+ Add any comments (optional)</summary>
+                    <textarea name="s1_comments" placeholder="Any additional thoughts on your health and fitness profile..."></textarea>
+                </details>
+                
+                <div class="button-row">
+                    <div></div>
+                    <button class="btn btn-primary" onclick="nextSection(2)">
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 2: Physical Product Usage -->
+        <div class="section" id="section2">
+            <div class="card">
+                <div class="section-title">Section 2: Physical Product Usage</div>
+                <div class="section-subtitle">Tell us about the health and fitness products you use</div>
+                
+                <!-- Q1: Products Used -->
+                <div class="question">
+                    <label class="question-label">1. Which of the following products do you currently use?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    <div class="options-list" id="productsList">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Whey protein / protein powder">
+                            <label>Whey protein / protein powder</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Protein bars / ready-to-drink protein">
+                            <label>Protein bars / ready-to-drink protein</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Creatine">
+                            <label>Creatine</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Pre-workout">
+                            <label>Pre-workout</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Shilajit">
+                            <label>Shilajit</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Ashwagandha">
+                            <label>Ashwagandha</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Magnesium">
+                            <label>Magnesium</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Multivitamins">
+                            <label>Multivitamins</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Fish oil / Omega-3">
+                            <label>Fish oil / Omega-3</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Biotin">
+                            <label>Biotin</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Melatonin / sleep supplements">
+                            <label>Melatonin / sleep supplements</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Hair care products">
+                            <label>Hair care products (serums, oils, minoxidil)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Skin care products">
+                            <label>Skin care products (face wash, serums, moisturizers)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="Sexual wellness products">
+                            <label>Sexual wellness products</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's2_products'); updateProductTable();">
+                            <input type="checkbox" name="s2_products" value="None">
+                            <label>None of the above</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s2_products_other" placeholder="Other products (please specify)">
+                    </div>
+                </div>
+                
+                <!-- Q2: Product Details Table -->
+                <div class="question" id="productDetailsQuestion" style="display: none;">
+                    <label class="question-label">2. For each product you selected, please provide details:</label>
+                    <div class="table-container">
+                        <table class="data-table" id="productDetailsTable">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>How long?</th>
+                                    <th>Frequency</th>
+                                    <th>Brand</th>
+                                    <th>Where buy?</th>
+                                    <th>Why repeat?</th>
+                                    <th>Top 2 brand drivers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productDetailsBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <details class="optional-comment">
+                    <summary>+ Add any comments (optional)</summary>
+                    <textarea name="s2_comments" placeholder="Any additional thoughts on your product usage..."></textarea>
+                </details>
+                
+                <div class="button-row">
+                    <button class="btn btn-secondary" onclick="prevSection(1)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M3 8L8 3M3 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextSection(3)">
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 3: Tech Product Usage -->
+        <div class="section" id="section3">
+            <div class="card">
+                <div class="section-title">Section 3: Tech Product Usage</div>
+                <div class="section-subtitle">Tell us about the health/fitness devices and apps you use</div>
+                
+                <!-- Q1: Devices and Apps Used -->
+                <div class="question">
+                    <label class="question-label">1. Which of the following devices or apps do you currently use for health/fitness?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    
+                    <div class="category-header">Devices</div>
+                    <div class="options-list" id="techList">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Smartwatch / fitness band">
+                            <label>Smartwatch / fitness band (e.g., Apple Watch, Fitbit, Noise, boAt)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Smart scale">
+                            <label>Smart scale</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="CGM">
+                            <label>CGM (continuous glucose monitor)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="category-header">Apps</div>
+                    <div class="options-list">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Workout / fitness tracking app">
+                            <label>Workout / fitness tracking (e.g., Strava, Nike Training, Cult.fit)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Calorie / food tracking app">
+                            <label>Calorie / food tracking (e.g., HealthifyMe, MyFitnessPal)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Sleep tracking app">
+                            <label>Sleep tracking</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Meditation / mental wellness app">
+                            <label>Meditation / mental wellness (e.g., Headspace, Calm)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="Health / telehealth app">
+                            <label>Health / telehealth (e.g., Practo, ManMatters)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's3_tech'); updateTechTable();">
+                            <input type="checkbox" name="s3_tech" value="None">
+                            <label>None of the above</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s3_tech_other" placeholder="Other devices/apps (please specify)">
+                    </div>
+                </div>
+                
+                <!-- Q2: Tech Details Table -->
+                <div class="question" id="techDetailsQuestion" style="display: none;">
+                    <label class="question-label">2. For each device/app you selected, please provide details:</label>
+                    <div class="table-container">
+                        <table class="data-table" id="techDetailsTable">
+                            <thead>
+                                <tr>
+                                    <th>Device / App</th>
+                                    <th>How long?</th>
+                                    <th>Frequency</th>
+                                    <th>Which one?</th>
+                                    <th>What keeps you coming back?</th>
+                                    <th>What causes disengagement?</th>
+                                </tr>
+                            </thead>
+                            <tbody id="techDetailsBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <details class="optional-comment">
+                    <summary>+ Add any comments (optional)</summary>
+                    <textarea name="s3_comments" placeholder="Any additional thoughts on your tech usage..."></textarea>
+                </details>
+                
+                <div class="button-row">
+                    <button class="btn btn-secondary" onclick="prevSection(2)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M3 8L8 3M3 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextSection(4)">
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 4: Pain Points & Unmet Needs -->
+        <div class="section" id="section4">
+            <div class="card">
+                <div class="section-title">Section 4: Pain Points & Unmet Needs</div>
+                <div class="section-subtitle">Help us understand your challenges and what would help you</div>
+                
+                <!-- Q1: Challenges -->
+                <div class="question">
+                    <label class="question-label">1. What are your biggest challenges in maintaining your health and fitness habits?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    <div class="options-list">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Lack of time">
+                            <label>Lack of time</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Lack of motivation / consistency">
+                            <label>Lack of motivation / consistency</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Don't know what to do">
+                            <label>Don't know what to do (workouts, diet plans)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Too many conflicting information sources">
+                            <label>Too many conflicting information sources</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Hard to track progress">
+                            <label>Hard to track progress</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Products are too expensive">
+                            <label>Products are too expensive</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Don't see results fast enough">
+                            <label>Don't see results fast enough</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Forget to take supplements regularly">
+                            <label>Forget to take supplements regularly</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Hard to find products that suit my needs">
+                            <label>Hard to find products that suit my needs</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Lack of expert guidance">
+                            <label>Lack of expert guidance / personalized advice</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Social/family commitments">
+                            <label>Social/family commitments get in the way</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                            <input type="checkbox" name="s4_challenges" value="Travel disrupts routine">
+                            <label>Travel disrupts my routine</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s4_challenges_other" placeholder="Other challenges (please specify)">
+                    </div>
+                </div>
+                
+                <!-- Q2: What would help -->
+                <div class="question">
+                    <label class="question-label">2. What would help you be more consistent with your health and fitness goals?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    <div class="options-list">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Reminders / nudges">
+                            <label>Reminders / nudges to stay on track</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Clear simple routines">
+                            <label>Clear, simple routines to follow</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Personalized plans">
+                            <label>Personalized plans based on my goals</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Progress tracking">
+                            <label>Progress tracking with visible results</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Expert consultation">
+                            <label>Expert consultation (doctor, nutritionist, coach)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Community / accountability">
+                            <label>Community / accountability partner</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Rewards for consistency">
+                            <label>Rewards for consistency</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Bundled products">
+                            <label>Products bundled into a simple regimen</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Auto-delivery">
+                            <label>Auto-delivery so I don't run out</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Affordable pricing">
+                            <label>Affordable pricing / better value</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                            <input type="checkbox" name="s4_help" value="Content">
+                            <label>Content (tips, videos, articles) to stay motivated</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s4_help_other" placeholder="Other things that would help (please specify)">
+                    </div>
+                </div>
+                
+                <!-- Q3: What's missing -->
+                <div class="question">
+                    <label class="question-label">3. What's missing in the health/fitness products or apps you currently use?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    <div class="options-list">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Better personalization">
+                            <label>Better personalization</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Easier to understand guidance">
+                            <label>Easier to understand guidance</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="More affordable options">
+                            <label>More affordable options</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Better taste / form factor">
+                            <label>Better taste / form factor (for supplements)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Faster visible results">
+                            <label>Faster visible results</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Indian-context advice">
+                            <label>Indian-context advice (local foods, routines)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Doctor/expert access">
+                            <label>Doctor/expert access</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Community features">
+                            <label>Community features</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Data overload from trackers">
+                            <label>Too much data from trackers, hard to know what matters or how to improve</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="No connection between metrics and supplements">
+                            <label>No connection between device metrics, blood tests, and supplement recommendations</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                            <input type="checkbox" name="s4_missing" value="Nothing - satisfied">
+                            <label>Nothing — I'm satisfied</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s4_missing_other" placeholder="Other things missing (please specify)">
+                    </div>
+                </div>
+                
+                <details class="optional-comment">
+                    <summary>+ Add any comments (optional)</summary>
+                    <textarea name="s4_comments" placeholder="Any additional thoughts on your pain points and needs..."></textarea>
+                </details>
+                
+                <div class="button-row">
+                    <button class="btn btn-secondary" onclick="prevSection(3)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M3 8L8 3M3 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextSection(5)">
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 5: ManMatters Usage -->
+        <div class="section" id="section5">
+            <div class="card">
+                <div class="section-title">Section 5: ManMatters Usage</div>
+                <div class="section-subtitle">Tell us about your experience with ManMatters</div>
+                
+                <!-- Q1: Purchased -->
+                <div class="question">
+                    <label class="question-label">1. Have you purchased any ManMatters products?</label>
+                    <div class="options-grid">
+                        <div class="option-item" onclick="selectRadio(this, 's5_purchased'); toggleMMCategories()">
+                            <input type="radio" name="s5_purchased" value="Yes">
+                            <label>Yes</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's5_purchased'); toggleMMCategories()">
+                            <input type="radio" name="s5_purchased" value="No">
+                            <label>No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2: Categories -->
+                <div class="question" id="mmCategoriesQuestion" style="display: none;">
+                    <label class="question-label">2. Which categories have you purchased from?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    <div class="options-list">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                            <input type="checkbox" name="s5_categories" value="Hair care">
+                            <label>Hair care (hair growth, minoxidil, serums)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                            <input type="checkbox" name="s5_categories" value="Beard care">
+                            <label>Beard care</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                            <input type="checkbox" name="s5_categories" value="Skin care">
+                            <label>Skin care</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                            <input type="checkbox" name="s5_categories" value="Sexual wellness">
+                            <label>Sexual wellness</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                            <input type="checkbox" name="s5_categories" value="Nutrition">
+                            <label>Nutrition (protein, shilajit, creatine, magnesium, etc.)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                            <input type="checkbox" name="s5_categories" value="Sleep">
+                            <label>Sleep</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s5_categories_other" placeholder="Other categories (please specify)">
+                    </div>
+                </div>
+                
+                <!-- Q3: App installed -->
+                <div class="question">
+                    <label class="question-label">3. Do you have the ManMatters app installed on your phone?</label>
+                    <div class="options-grid">
+                        <div class="option-item" onclick="selectRadio(this, 's5_app'); toggleAppUsage()">
+                            <input type="radio" name="s5_app" value="Yes">
+                            <label>Yes</label>
+                        </div>
+                        <div class="option-item" onclick="selectRadio(this, 's5_app'); toggleAppUsage()">
+                            <input type="radio" name="s5_app" value="No">
+                            <label>No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4: App usage -->
+                <div class="question" id="appUsageQuestion" style="display: none;">
+                    <label class="question-label">4. What do you use the app for today?</label>
+                    <p class="question-hint">Select all that apply</p>
+                    <div class="options-list">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                            <input type="checkbox" name="s5_app_usage" value="Purchasing / reordering">
+                            <label>Purchasing / reordering products</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                            <input type="checkbox" name="s5_app_usage" value="Tracking orders">
+                            <label>Tracking orders</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                            <input type="checkbox" name="s5_app_usage" value="Doctor / expert consultations">
+                            <label>Doctor / expert consultations</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                            <input type="checkbox" name="s5_app_usage" value="Browsing content">
+                            <label>Browsing content (articles, tips)</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                            <input type="checkbox" name="s5_app_usage" value="Habit tracking / rewards">
+                            <label>Habit tracking / rewards</label>
+                        </div>
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                            <input type="checkbox" name="s5_app_usage" value="Rarely open it">
+                            <label>I have it installed but rarely open it</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <input type="text" class="text-input" name="s5_app_usage_other" placeholder="Other uses (please specify)">
+                    </div>
+                </div>
+                
+                <!-- Q5: Suggestions -->
+                <div class="question">
+                    <label class="question-label">5. Any suggestions to improve ManMatters products or app experience?</label>
+                    <textarea class="text-input" name="s5_suggestions" rows="4" placeholder="Share your thoughts, feedback, or ideas..." style="resize: vertical;"></textarea>
+                </div>
+                
+                <details class="optional-comment">
+                    <summary>+ Add any other comments (optional)</summary>
+                    <textarea name="s5_comments" placeholder="Any additional thoughts..."></textarea>
+                </details>
+                
+                <div class="button-row">
+                    <button class="btn btn-secondary" onclick="prevSection(4)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M3 8L8 3M3 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        Back
+                    </button>
+                    <button class="btn btn-success" onclick="submitSurvey()">
+                        Submit Survey
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Success Screen -->
+        <div class="section" id="successScreen">
+            <div class="card">
+                <div class="success-screen">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <div class="success-title">Thank you!</div>
+                    <div class="success-message">Your response has been recorded successfully.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <script>
+        // ==========================================
+        // CONFIGURATION - UPDATE THIS URL
+        // ==========================================
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwdJqwdjD73FbaFYWYjzy7PRpL8C2L9jf7dyENs8P9p2K3nWoOAcWIuJjtQkt3Zyh05/exec';
+        // ==========================================
+        
+        let currentSection = 1;
+        
+        // Navigation
+        function nextSection(num) {
+            document.getElementById(`section${currentSection}`).classList.remove('active');
+            document.getElementById(`section${num}`).classList.add('active');
+            currentSection = num;
+            updateProgress();
+            window.scrollTo(0, 0);
+            
+            // Update dynamic tables when entering sections
+            if (num === 2) updateProductTable();
+            if (num === 3) updateTechTable();
+        }
+        
+        function prevSection(num) {
+            document.getElementById(`section${currentSection}`).classList.remove('active');
+            document.getElementById(`section${num}`).classList.add('active');
+            currentSection = num;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+        
+        function updateProgress() {
+            document.getElementById('currentSection').textContent = currentSection;
+            document.getElementById('progressBar').style.width = (currentSection * 20) + '%';
+        }
+        
+        // Radio button selection
+        function selectRadio(element, name) {
+            // Remove selected class from siblings
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            // Add selected class and check radio
+            element.classList.add('selected');
+            element.querySelector('input[type="radio"]').checked = true;
+        }
+        
+        // Checkbox toggle
+        function toggleCheckbox(element, name) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected', checkbox.checked);
+            
+            // Handle "None" option
+            if (checkbox.value === 'None' && checkbox.checked) {
+                const parent = element.parentElement;
+                parent.querySelectorAll('.option-item').forEach(item => {
+                    if (item !== element) {
+                        item.classList.remove('selected');
+                        item.querySelector('input[type="checkbox"]').checked = false;
+                    }
+                });
+            } else if (checkbox.checked) {
+                // Uncheck "None" if other option selected
+                const parent = element.closest('.options-list') || element.parentElement;
+                const noneOption = parent.querySelector('input[value="None"]');
+                if (noneOption && noneOption !== checkbox) {
+                    noneOption.checked = false;
+                    noneOption.closest('.option-item').classList.remove('selected');
+                }
+            }
+        }
+        
+        // Update product details table based on selections
+        function updateProductTable() {
+            const checkboxes = document.querySelectorAll('input[name="s2_products"]:checked');
+            const tbody = document.getElementById('productDetailsBody');
+            const question = document.getElementById('productDetailsQuestion');
+            
+            tbody.innerHTML = '';
+            
+            const selectedProducts = [];
+            checkboxes.forEach(cb => {
+                if (cb.value !== 'None') {
+                    selectedProducts.push(cb.value);
+                }
+            });
+            
+            if (selectedProducts.length === 0) {
+                question.style.display = 'none';
+                return;
+            }
+            
+            question.style.display = 'block';
+            
+            selectedProducts.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="product-name">${product}</td>
+                    <td>
+                        <select class="table-dropdown" name="product_${product}_duration">
+                            <option value="">Select...</option>
+                            <option value="Less than 3 months">Less than 3 months</option>
+                            <option value="3-6 months">3-6 months</option>
+                            <option value="6-12 months">6-12 months</option>
+                            <option value="1-2 years">1-2 years</option>
+                            <option value="More than 2 years">More than 2 years</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="product_${product}_frequency">
+                            <option value="">Select...</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Few times a week">Few times a week</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Occasionally">Occasionally</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="table-input" name="product_${product}_brand" placeholder="Brand name">
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="product_${product}_channel">
+                            <option value="">Select...</option>
+                            <option value="Amazon">Amazon</option>
+                            <option value="Flipkart">Flipkart</option>
+                            <option value="Brand website">Brand website</option>
+                            <option value="Retail store">Retail store</option>
+                            <option value="Quick commerce">Quick commerce (Zepto, Blinkit)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="product_${product}_repeat">
+                            <option value="">Select...</option>
+                            <option value="Seeing results">Seeing results</option>
+                            <option value="Habit">Habit</option>
+                            <option value="Subscription auto-renews">Subscription auto-renews</option>
+                            <option value="Running out">Running out</option>
+                            <option value="Doctor/expert recommended">Doctor/expert recommended</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="product_${product}_drivers" multiple size="3" onchange="limitSelection(this, 2)">
+                            <option value="Price">Price</option>
+                            <option value="Availability">Availability</option>
+                            <option value="Brand trust">Brand trust</option>
+                            <option value="Recommendations">Recommendations</option>
+                            <option value="Taste/form factor">Taste/form factor</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="limit-note">Select up to 2</div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Update tech details table based on selections
+        function updateTechTable() {
+            const checkboxes = document.querySelectorAll('input[name="s3_tech"]:checked');
+            const tbody = document.getElementById('techDetailsBody');
+            const question = document.getElementById('techDetailsQuestion');
+            
+            tbody.innerHTML = '';
+            
+            const selectedTech = [];
+            checkboxes.forEach(cb => {
+                if (cb.value !== 'None') {
+                    selectedTech.push(cb.value);
+                }
+            });
+            
+            if (selectedTech.length === 0) {
+                question.style.display = 'none';
+                return;
+            }
+            
+            question.style.display = 'block';
+            
+            selectedTech.forEach(tech => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="product-name">${tech}</td>
+                    <td>
+                        <select class="table-dropdown" name="tech_${tech}_duration">
+                            <option value="">Select...</option>
+                            <option value="Less than 3 months">Less than 3 months</option>
+                            <option value="3-6 months">3-6 months</option>
+                            <option value="6-12 months">6-12 months</option>
+                            <option value="1-2 years">1-2 years</option>
+                            <option value="More than 2 years">More than 2 years</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="tech_${tech}_frequency">
+                            <option value="">Select...</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Few times a week">Few times a week</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Occasionally">Occasionally</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="table-input" name="tech_${tech}_which" placeholder="e.g., Apple Watch">
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="tech_${tech}_retain">
+                            <option value="">Select...</option>
+                            <option value="Tracking progress">Tracking progress</option>
+                            <option value="Habit">Habit</option>
+                            <option value="Reminders/notifications">Reminders/notifications</option>
+                            <option value="Content">Content (workouts, recipes)</option>
+                            <option value="Social/community">Social/community features</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="table-dropdown" name="tech_${tech}_disengage">
+                            <option value="">Select...</option>
+                            <option value="Forgot about it">Forgot about it</option>
+                            <option value="Didn't see value">Didn't see value</option>
+                            <option value="Too much effort">Too much effort</option>
+                            <option value="Switched to alternative">Switched to alternative</option>
+                            <option value="Technical issues">Technical issues</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Limit multi-select to 2 options
+        function limitSelection(selectElement, maxSelections) {
+            const selectedOptions = Array.from(selectElement.selectedOptions);
+            if (selectedOptions.length > maxSelections) {
+                // Deselect the last selected option
+                selectedOptions[selectedOptions.length - 1].selected = false;
+            }
+        }
+        
+        // Toggle ManMatters categories visibility
+        function toggleMMCategories() {
+            const purchased = document.querySelector('input[name="s5_purchased"]:checked');
+            const categoriesQuestion = document.getElementById('mmCategoriesQuestion');
+            if (purchased && purchased.value === 'Yes') {
+                categoriesQuestion.style.display = 'block';
+            } else {
+                categoriesQuestion.style.display = 'none';
+            }
+        }
+        
+        // Toggle app usage visibility
+        function toggleAppUsage() {
+            const appInstalled = document.querySelector('input[name="s5_app"]:checked');
+            const usageQuestion = document.getElementById('appUsageQuestion');
+            if (appInstalled && appInstalled.value === 'Yes') {
+                usageQuestion.style.display = 'block';
+            } else {
+                usageQuestion.style.display = 'none';
+            }
+        }
+        
+        // Collect all form data
+        function collectFormData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                
+                // Section 1
+                s1_age: getRadioValue('s1_age'),
+                s1_height: getValue('s1_height'),
+                s1_weight: getValue('s1_weight'),
+                s1_activity: getRadioValue('s1_activity'),
+                s1_diet: getRadioValue('s1_diet'),
+                s1_track_workouts: getValue('s1_track_workouts'),
+                s1_track_workouts_how: getValue('s1_track_workouts_how'),
+                s1_track_calories: getValue('s1_track_calories'),
+                s1_track_calories_how: getValue('s1_track_calories_how'),
+                s1_track_water: getValue('s1_track_water'),
+                s1_track_water_how: getValue('s1_track_water_how'),
+                s1_track_sleep: getValue('s1_track_sleep'),
+                s1_track_sleep_how: getValue('s1_track_sleep_how'),
+                s1_track_weight: getValue('s1_track_weight'),
+                s1_track_weight_how: getValue('s1_track_weight_how'),
+                s1_track_steps: getValue('s1_track_steps'),
+                s1_track_steps_how: getValue('s1_track_steps_how'),
+                s1_track_heartrate: getValue('s1_track_heartrate'),
+                s1_track_heartrate_how: getValue('s1_track_heartrate_how'),
+                s1_approach: getRadioValue('s1_approach'),
+                s1_comments: getValue('s1_comments'),
+                
+                // Section 2
+                s2_products: getCheckboxValues('s2_products'),
+                s2_products_other: getValue('s2_products_other'),
+                s2_product_details: collectProductDetails(),
+                s2_comments: getValue('s2_comments'),
+                
+                // Section 3
+                s3_tech: getCheckboxValues('s3_tech'),
+                s3_tech_other: getValue('s3_tech_other'),
+                s3_tech_details: collectTechDetails(),
+                s3_comments: getValue('s3_comments'),
+                
+                // Section 4
+                s4_challenges: getCheckboxValues('s4_challenges'),
+                s4_challenges_other: getValue('s4_challenges_other'),
+                s4_help: getCheckboxValues('s4_help'),
+                s4_help_other: getValue('s4_help_other'),
+                s4_missing: getCheckboxValues('s4_missing'),
+                s4_missing_other: getValue('s4_missing_other'),
+                s4_comments: getValue('s4_comments'),
+                
+                // Section 5
+                s5_purchased: getRadioValue('s5_purchased'),
+                s5_categories: getCheckboxValues('s5_categories'),
+                s5_categories_other: getValue('s5_categories_other'),
+                s5_app: getRadioValue('s5_app'),
+                s5_app_usage: getCheckboxValues('s5_app_usage'),
+                s5_app_usage_other: getValue('s5_app_usage_other'),
+                s5_suggestions: getValue('s5_suggestions'),
+                s5_comments: getValue('s5_comments')
+            };
+            
+            return data;
+        }
+        
+        function getRadioValue(name) {
+            const radio = document.querySelector(`input[name="${name}"]:checked`);
+            return radio ? radio.value : '';
+        }
+        
+        function getValue(name) {
+            const el = document.querySelector(`[name="${name}"]`);
+            return el ? el.value : '';
+        }
+        
+        function getCheckboxValues(name) {
+            const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+            return Array.from(checkboxes).map(cb => cb.value).join(', ');
+        }
+        
+        function collectProductDetails() {
+            const details = [];
+            const rows = document.querySelectorAll('#productDetailsBody tr');
+            rows.forEach(row => {
+                const product = row.querySelector('.product-name').textContent;
+                const duration = row.querySelector(`[name="product_${product}_duration"]`)?.value || '';
+                const frequency = row.querySelector(`[name="product_${product}_frequency"]`)?.value || '';
+                const brand = row.querySelector(`[name="product_${product}_brand"]`)?.value || '';
+                const channel = row.querySelector(`[name="product_${product}_channel"]`)?.value || '';
+                const repeat = row.querySelector(`[name="product_${product}_repeat"]`)?.value || '';
+                const driversSelect = row.querySelector(`[name="product_${product}_drivers"]`);
+                const drivers = driversSelect ? Array.from(driversSelect.selectedOptions).map(o => o.value).join(', ') : '';
+                
+                details.push({
+                    product,
+                    duration,
+                    frequency,
+                    brand,
+                    channel,
+                    repeat,
+                    drivers
+                });
+            });
+            return JSON.stringify(details);
+        }
+        
+        function collectTechDetails() {
+            const details = [];
+            const rows = document.querySelectorAll('#techDetailsBody tr');
+            rows.forEach(row => {
+                const tech = row.querySelector('.product-name').textContent;
+                const duration = row.querySelector(`[name="tech_${tech}_duration"]`)?.value || '';
+                const frequency = row.querySelector(`[name="tech_${tech}_frequency"]`)?.value || '';
+                const which = row.querySelector(`[name="tech_${tech}_which"]`)?.value || '';
+                const retain = row.querySelector(`[name="tech_${tech}_retain"]`)?.value || '';
+                const disengage = row.querySelector(`[name="tech_${tech}_disengage"]`)?.value || '';
+                
+                details.push({
+                    tech,
+                    duration,
+                    frequency,
+                    which,
+                    retain,
+                    disengage
+                });
+            });
+            return JSON.stringify(details);
+        }
+        
+        // Submit survey
+        async function submitSurvey() {
+            const data = collectFormData();
+            
+            // Show loading
+            document.getElementById('loadingOverlay').classList.add('active');
+            
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                // Hide loading and show success
+                document.getElementById('loadingOverlay').classList.remove('active');
+                document.getElementById('section5').classList.remove('active');
+                document.getElementById('successScreen').classList.add('active');
+                document.querySelector('.progress-text').style.display = 'none';
+                document.querySelector('.progress-container').style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error submitting survey:', error);
+                document.getElementById('loadingOverlay').classList.remove('active');
+                alert('There was an error submitting your response. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
