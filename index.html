@@ -127,6 +127,7 @@
             height: 20px;
             accent-color: #667eea;
             cursor: pointer;
+            pointer-events: none;
         }
         
         .option-item label {
@@ -134,6 +135,7 @@
             color: #333;
             cursor: pointer;
             flex: 1;
+            pointer-events: none;
         }
         
         /* Grid options for shorter lists */
@@ -146,6 +148,65 @@
         @media (max-width: 600px) {
             .options-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px 15px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .question-label {
+                font-size: 15px;
+            }
+            
+            .input-row {
+                flex-direction: column;
+            }
+            
+            .data-table {
+                font-size: 11px;
+            }
+            
+            .data-table th {
+                font-size: 10px;
+                padding: 8px 4px;
+            }
+            
+            .data-table td {
+                padding: 6px 4px;
+            }
+            
+            .table-dropdown, .table-input {
+                font-size: 10px;
+                padding: 5px 3px;
+                min-width: 60px;
+            }
+            
+            .data-table .product-name {
+                font-size: 11px;
+                min-width: 70px;
+            }
+            
+            .tracking-table {
+                font-size: 12px;
+            }
+            
+            .tracking-table select {
+                font-size: 12px;
+                min-width: 90px;
+                padding: 6px 4px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
             }
         }
         
@@ -194,8 +255,7 @@
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
-            min-width: 700px;
+            font-size: 12px;
         }
         
         .data-table thead {
@@ -204,17 +264,17 @@
         
         .data-table th {
             text-align: left;
-            padding: 12px 10px;
+            padding: 10px 6px;
             font-weight: 600;
             color: #333;
             border-bottom: 2px solid #e0e0e0;
-            white-space: nowrap;
+            font-size: 11px;
         }
         
         .data-table td {
-            padding: 10px;
+            padding: 8px 6px;
             border-bottom: 1px solid #f0f0f0;
-            vertical-align: middle;
+            vertical-align: top;
         }
         
         .data-table tbody tr:hover {
@@ -224,16 +284,17 @@
         .data-table .product-name {
             font-weight: 600;
             color: #667eea;
-            white-space: nowrap;
+            font-size: 12px;
+            min-width: 100px;
         }
         
         .table-dropdown {
-            padding: 8px 10px;
+            padding: 6px 4px;
             border: 1px solid #dadce0;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             width: 100%;
-            min-width: 100px;
+            min-width: 80px;
             cursor: pointer;
         }
         
@@ -243,17 +304,24 @@
         }
         
         .table-input {
-            padding: 8px 10px;
+            padding: 6px 4px;
             border: 1px solid #dadce0;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             width: 100%;
-            min-width: 80px;
+            min-width: 70px;
         }
         
         .table-input:focus {
             outline: none;
             border-color: #667eea;
+        }
+        
+        /* Disabled select styling */
+        select:disabled {
+            background-color: #f0f0f0;
+            color: #999;
+            cursor: not-allowed;
         }
         
         /* Tracking table */
@@ -590,14 +658,14 @@
                                 <tr>
                                     <td>Workouts / exercises</td>
                                     <td>
-                                        <select name="s1_track_workouts">
+                                        <select name="s1_track_workouts" onchange="toggleTrackingHow(this, 's1_track_workouts_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_workouts_how">
+                                        <select name="s1_track_workouts_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="App">App</option>
                                             <option value="Notebook">Notebook</option>
@@ -609,14 +677,14 @@
                                 <tr>
                                     <td>Calories / food intake</td>
                                     <td>
-                                        <select name="s1_track_calories">
+                                        <select name="s1_track_calories" onchange="toggleTrackingHow(this, 's1_track_calories_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_calories_how">
+                                        <select name="s1_track_calories_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="App">App</option>
                                             <option value="Notebook">Notebook</option>
@@ -628,14 +696,14 @@
                                 <tr>
                                     <td>Water intake</td>
                                     <td>
-                                        <select name="s1_track_water">
+                                        <select name="s1_track_water" onchange="toggleTrackingHow(this, 's1_track_water_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_water_how">
+                                        <select name="s1_track_water_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="App">App</option>
                                             <option value="Notebook">Notebook</option>
@@ -647,14 +715,14 @@
                                 <tr>
                                     <td>Sleep</td>
                                     <td>
-                                        <select name="s1_track_sleep">
+                                        <select name="s1_track_sleep" onchange="toggleTrackingHow(this, 's1_track_sleep_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_sleep_how">
+                                        <select name="s1_track_sleep_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="App">App</option>
                                             <option value="Wearable">Wearable</option>
@@ -666,14 +734,14 @@
                                 <tr>
                                     <td>Weight</td>
                                     <td>
-                                        <select name="s1_track_weight">
+                                        <select name="s1_track_weight" onchange="toggleTrackingHow(this, 's1_track_weight_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_weight_how">
+                                        <select name="s1_track_weight_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="Smart scale">Smart scale</option>
                                             <option value="Regular scale">Regular scale</option>
@@ -685,14 +753,14 @@
                                 <tr>
                                     <td>Steps / activity</td>
                                     <td>
-                                        <select name="s1_track_steps">
+                                        <select name="s1_track_steps" onchange="toggleTrackingHow(this, 's1_track_steps_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_steps_how">
+                                        <select name="s1_track_steps_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="Phone">Phone</option>
                                             <option value="Wearable">Wearable</option>
@@ -703,14 +771,14 @@
                                 <tr>
                                     <td>Heart rate / vitals</td>
                                     <td>
-                                        <select name="s1_track_heartrate">
+                                        <select name="s1_track_heartrate" onchange="toggleTrackingHow(this, 's1_track_heartrate_how')">
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="s1_track_heartrate_how">
+                                        <select name="s1_track_heartrate_how" disabled>
                                             <option value="">Select...</option>
                                             <option value="Wearable">Wearable</option>
                                             <option value="App">App</option>
@@ -850,9 +918,9 @@
                                     <th>How long?</th>
                                     <th>Frequency</th>
                                     <th>Brand</th>
-                                    <th>Where buy?</th>
-                                    <th>Why repeat?</th>
-                                    <th>Top 2 brand drivers</th>
+                                    <th>Where to buy?</th>
+                                    <th>Why do you consume it regularly?</th>
+                                    <th>Beyond Quality & Trust, why consider a new brand?</th>
                                 </tr>
                             </thead>
                             <tbody id="productDetailsBody">
@@ -1330,6 +1398,17 @@
         
         let currentSection = 1;
         
+        // Toggle "How do you track?" dropdown based on Yes/No selection
+        function toggleTrackingHow(selectElement, howFieldName) {
+            const howField = document.querySelector(`[name="${howFieldName}"]`);
+            if (selectElement.value === 'Yes') {
+                howField.disabled = false;
+            } else {
+                howField.disabled = true;
+                howField.value = '';
+            }
+        }
+        
         // Navigation
         function nextSection(num) {
             document.getElementById(`section${currentSection}`).classList.remove('active');
@@ -1445,8 +1524,7 @@
                     <td>
                         <select class="table-dropdown" name="product_${product}_channel">
                             <option value="">Select...</option>
-                            <option value="Amazon">Amazon</option>
-                            <option value="Flipkart">Flipkart</option>
+                            <option value="Ecommerce">Ecommerce (Amazon, FK, etc)</option>
                             <option value="Brand website">Brand website</option>
                             <option value="Retail store">Retail store</option>
                             <option value="Quick commerce">Quick commerce (Zepto, Blinkit)</option>
@@ -1459,21 +1537,27 @@
                             <option value="Seeing results">Seeing results</option>
                             <option value="Habit">Habit</option>
                             <option value="Subscription auto-renews">Subscription auto-renews</option>
-                            <option value="Running out">Running out</option>
                             <option value="Doctor/expert recommended">Doctor/expert recommended</option>
                             <option value="Other">Other</option>
                         </select>
                     </td>
                     <td>
-                        <select class="table-dropdown" name="product_${product}_drivers" multiple size="3" onchange="limitSelection(this, 2)">
+                        <select class="table-dropdown" name="product_${product}_driver1">
+                            <option value="">Reason 1...</option>
                             <option value="Price">Price</option>
                             <option value="Availability">Availability</option>
-                            <option value="Brand trust">Brand trust</option>
-                            <option value="Recommendations">Recommendations</option>
+                            <option value="Recommendations">Recommendations (friends/influencers)</option>
                             <option value="Taste/form factor">Taste/form factor</option>
                             <option value="Other">Other</option>
                         </select>
-                        <div class="limit-note">Select up to 2</div>
+                        <select class="table-dropdown" name="product_${product}_driver2" style="margin-top: 5px;">
+                            <option value="">Reason 2...</option>
+                            <option value="Price">Price</option>
+                            <option value="Availability">Availability</option>
+                            <option value="Recommendations">Recommendations (friends/influencers)</option>
+                            <option value="Taste/form factor">Taste/form factor</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -1674,8 +1758,8 @@
                 const brand = row.querySelector(`[name="product_${product}_brand"]`)?.value || '';
                 const channel = row.querySelector(`[name="product_${product}_channel"]`)?.value || '';
                 const repeat = row.querySelector(`[name="product_${product}_repeat"]`)?.value || '';
-                const driversSelect = row.querySelector(`[name="product_${product}_drivers"]`);
-                const drivers = driversSelect ? Array.from(driversSelect.selectedOptions).map(o => o.value).join(', ') : '';
+                const driver1 = row.querySelector(`[name="product_${product}_driver1"]`)?.value || '';
+                const driver2 = row.querySelector(`[name="product_${product}_driver2"]`)?.value || '';
                 
                 details.push({
                     product,
@@ -1684,7 +1768,8 @@
                     brand,
                     channel,
                     repeat,
-                    drivers
+                    driver1,
+                    driver2
                 });
             });
             return JSON.stringify(details);
