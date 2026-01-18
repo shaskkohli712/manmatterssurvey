@@ -1437,7 +1437,7 @@
         // Radio button selection
         function selectRadio(element, name, event) {
             // Prevent double-firing if clicking directly on input
-            if (event && event.target.tagName === 'INPUT') return;
+            if (event && event.target && event.target.tagName === 'INPUT') return;
             
             // Remove selected class from siblings
             const parent = element.parentElement;
@@ -1452,7 +1452,7 @@
         // Checkbox toggle
         function toggleCheckbox(element, name, event) {
             // Prevent double-firing if clicking directly on input
-            if (event && event.target.tagName === 'INPUT') return;
+            if (event && event.target && event.target.tagName === 'INPUT') return;
             
             const checkbox = element.querySelector('input[type="checkbox"]');
             checkbox.checked = !checkbox.checked;
