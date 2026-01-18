@@ -590,12 +590,12 @@
                 <div class="question">
                     <div class="input-row">
                         <div class="input-group">
-                            <label class="question-label">2. What is your height?</label>
-                            <input type="text" class="text-input" name="s1_height" placeholder="e.g., 5'10&quot; or 178 cm">
+                            <label class="question-label">2. What is your height in cm?</label>
+                            <input type="text" class="text-input" name="s1_height" placeholder="e.g., 178">
                         </div>
                         <div class="input-group">
-                            <label class="question-label">3. What is your weight?</label>
-                            <input type="text" class="text-input" name="s1_weight" placeholder="e.g., 75 kg or 165 lbs">
+                            <label class="question-label">3. What is your weight in kg?</label>
+                            <input type="text" class="text-input" name="s1_weight" placeholder="e.g., 75">
                         </div>
                     </div>
                 </div>
@@ -1436,9 +1436,6 @@
         
         // Radio button selection
         function selectRadio(element, name, event) {
-            // Prevent double-firing if clicking directly on input
-            if (event && event.target && event.target.tagName === 'INPUT') return;
-            
             // Remove selected class from siblings
             const parent = element.parentElement;
             parent.querySelectorAll('.option-item').forEach(item => {
@@ -1451,11 +1448,11 @@
         
         // Checkbox toggle
         function toggleCheckbox(element, name, event) {
-            // Prevent double-firing if clicking directly on input
-            if (event && event.target && event.target.tagName === 'INPUT') return;
-            
             const checkbox = element.querySelector('input[type="checkbox"]');
-            checkbox.checked = !checkbox.checked;
+            // Only toggle if not clicking directly on checkbox (to avoid double toggle)
+            if (!event || !event.target || event.target.tagName !== 'INPUT') {
+                checkbox.checked = !checkbox.checked;
+            }
             element.classList.toggle('selected', checkbox.checked);
             
             // Handle "None" option
