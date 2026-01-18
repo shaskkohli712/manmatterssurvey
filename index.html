@@ -127,7 +127,6 @@
             height: 20px;
             accent-color: #667eea;
             cursor: pointer;
-            pointer-events: none;
         }
         
         .option-item label {
@@ -135,7 +134,6 @@
             color: #333;
             cursor: pointer;
             flex: 1;
-            pointer-events: none;
         }
         
         /* Grid options for shorter lists */
@@ -569,19 +567,19 @@
                 <div class="question">
                     <label class="question-label">1. Which age group do you fall into?</label>
                     <div class="options-grid">
-                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_age', event)">
                             <input type="radio" name="s1_age" value="Under 30">
                             <label>Under 30</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_age', event)">
                             <input type="radio" name="s1_age" value="30-39">
                             <label>30-39</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_age', event)">
                             <input type="radio" name="s1_age" value="40-49">
                             <label>40-49</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_age')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_age', event)">
                             <input type="radio" name="s1_age" value="50+">
                             <label>50+</label>
                         </div>
@@ -606,19 +604,19 @@
                 <div class="question">
                     <label class="question-label">4. How physically active are you in a typical week?</label>
                     <div class="options-list">
-                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity', event)">
                             <input type="radio" name="s1_activity" value="Not active">
                             <label>Not active (little to no exercise)</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity', event)">
                             <input type="radio" name="s1_activity" value="Light">
                             <label>Light (1-2 times per week)</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity', event)">
                             <input type="radio" name="s1_activity" value="Moderate">
                             <label>Moderate (2-4 times per week)</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_activity')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_activity', event)">
                             <input type="radio" name="s1_activity" value="High">
                             <label>High (4+ times per week)</label>
                         </div>
@@ -629,19 +627,19 @@
                 <div class="question">
                     <label class="question-label">5. How would you describe your diet discipline?</label>
                     <div class="options-list">
-                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet', event)">
                             <input type="radio" name="s1_diet" value="Very disciplined">
                             <label>Very disciplined — I track macros/calories and follow a structured plan</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet', event)">
                             <input type="radio" name="s1_diet" value="Moderately disciplined">
                             <label>Moderately disciplined — I'm mindful of what I eat but don't track strictly</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet', event)">
                             <input type="radio" name="s1_diet" value="Somewhat disciplined">
                             <label>Somewhat disciplined — I try to eat healthy but inconsistent</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_diet')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_diet', event)">
                             <input type="radio" name="s1_diet" value="Not very disciplined">
                             <label>Not very disciplined — I eat what's convenient/available</label>
                         </div>
@@ -802,19 +800,19 @@
                 <div class="question">
                     <label class="question-label">7. How would you describe your overall approach to health and fitness?</label>
                     <div class="options-list">
-                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach', event)">
                             <input type="radio" name="s1_approach" value="Core identity">
                             <label>It's a core part of my identity — I prioritize it daily</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach', event)">
                             <input type="radio" name="s1_approach" value="Actively improving">
                             <label>I'm actively working on improving my health/fitness</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach', event)">
                             <input type="radio" name="s1_approach" value="Struggle with consistency">
                             <label>I care about it but struggle with consistency</label>
                         </div>
-                        <div class="option-item" onclick="selectRadio(this, 's1_approach')">
+                        <div class="option-item" onclick="selectRadio(this, 's1_approach', event)">
                             <input type="radio" name="s1_approach" value="Not a priority">
                             <label>I know I should care more but it's not a priority right now</label>
                         </div>
@@ -1057,51 +1055,51 @@
                     <label class="question-label">1. What are your biggest challenges in maintaining your health and fitness habits?</label>
                     <p class="question-hint">Select all that apply</p>
                     <div class="options-list">
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Lack of time">
                             <label>Lack of time</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Lack of motivation / consistency">
                             <label>Lack of motivation / consistency</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Don't know what to do">
                             <label>Don't know what to do (workouts, diet plans)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Too many conflicting information sources">
                             <label>Too many conflicting information sources</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Hard to track progress">
                             <label>Hard to track progress</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Products are too expensive">
                             <label>Products are too expensive</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Don't see results fast enough">
                             <label>Don't see results fast enough</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Forget to take supplements regularly">
                             <label>Forget to take supplements regularly</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Hard to find products that suit my needs">
                             <label>Hard to find products that suit my needs</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Lack of expert guidance">
                             <label>Lack of expert guidance / personalized advice</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Social/family commitments">
                             <label>Social/family commitments get in the way</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_challenges', event)">
                             <input type="checkbox" name="s4_challenges" value="Travel disrupts routine">
                             <label>Travel disrupts my routine</label>
                         </div>
@@ -1116,47 +1114,47 @@
                     <label class="question-label">2. What would help you be more consistent with your health and fitness goals?</label>
                     <p class="question-hint">Select all that apply</p>
                     <div class="options-list">
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Reminders / nudges">
                             <label>Reminders / nudges to stay on track</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Clear simple routines">
                             <label>Clear, simple routines to follow</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Personalized plans">
                             <label>Personalized plans based on my goals</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Progress tracking">
                             <label>Progress tracking with visible results</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Expert consultation">
                             <label>Expert consultation (doctor, nutritionist, coach)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Community / accountability">
                             <label>Community / accountability partner</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Rewards for consistency">
                             <label>Rewards for consistency</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Bundled products">
                             <label>Products bundled into a simple regimen</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Auto-delivery">
                             <label>Auto-delivery so I don't run out</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Affordable pricing">
                             <label>Affordable pricing / better value</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_help', event)">
                             <input type="checkbox" name="s4_help" value="Content">
                             <label>Content (tips, videos, articles) to stay motivated</label>
                         </div>
@@ -1171,47 +1169,47 @@
                     <label class="question-label">3. What's missing in the health/fitness products or apps you currently use?</label>
                     <p class="question-hint">Select all that apply</p>
                     <div class="options-list">
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Better personalization">
                             <label>Better personalization</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Easier to understand guidance">
                             <label>Easier to understand guidance</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="More affordable options">
                             <label>More affordable options</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Better taste / form factor">
                             <label>Better taste / form factor (for supplements)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Faster visible results">
                             <label>Faster visible results</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Indian-context advice">
                             <label>Indian-context advice (local foods, routines)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Doctor/expert access">
                             <label>Doctor/expert access</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Community features">
                             <label>Community features</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Data overload from trackers">
                             <label>Too much data from trackers, hard to know what matters or how to improve</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="No connection between metrics and supplements">
                             <label>No connection between device metrics, blood tests, and supplement recommendations</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's4_missing', event)">
                             <input type="checkbox" name="s4_missing" value="Nothing - satisfied">
                             <label>Nothing — I'm satisfied</label>
                         </div>
@@ -1265,27 +1263,27 @@
                     <label class="question-label">2. Which categories have you purchased from?</label>
                     <p class="question-hint">Select all that apply</p>
                     <div class="options-list">
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories', event)">
                             <input type="checkbox" name="s5_categories" value="Hair care">
                             <label>Hair care (hair growth, minoxidil, serums)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories', event)">
                             <input type="checkbox" name="s5_categories" value="Beard care">
                             <label>Beard care</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories', event)">
                             <input type="checkbox" name="s5_categories" value="Skin care">
                             <label>Skin care</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories', event)">
                             <input type="checkbox" name="s5_categories" value="Sexual wellness">
                             <label>Sexual wellness</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories', event)">
                             <input type="checkbox" name="s5_categories" value="Nutrition">
                             <label>Nutrition (protein, shilajit, creatine, magnesium, etc.)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_categories', event)">
                             <input type="checkbox" name="s5_categories" value="Sleep">
                             <label>Sleep</label>
                         </div>
@@ -1315,27 +1313,27 @@
                     <label class="question-label">4. What do you use the app for today?</label>
                     <p class="question-hint">Select all that apply</p>
                     <div class="options-list">
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage', event)">
                             <input type="checkbox" name="s5_app_usage" value="Purchasing / reordering">
                             <label>Purchasing / reordering products</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage', event)">
                             <input type="checkbox" name="s5_app_usage" value="Tracking orders">
                             <label>Tracking orders</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage', event)">
                             <input type="checkbox" name="s5_app_usage" value="Doctor / expert consultations">
                             <label>Doctor / expert consultations</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage', event)">
                             <input type="checkbox" name="s5_app_usage" value="Browsing content">
                             <label>Browsing content (articles, tips)</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage', event)">
                             <input type="checkbox" name="s5_app_usage" value="Habit tracking / rewards">
                             <label>Habit tracking / rewards</label>
                         </div>
-                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage')">
+                        <div class="option-item" onclick="toggleCheckbox(this, 's5_app_usage', event)">
                             <input type="checkbox" name="s5_app_usage" value="Rarely open it">
                             <label>I have it installed but rarely open it</label>
                         </div>
@@ -1437,7 +1435,10 @@
         }
         
         // Radio button selection
-        function selectRadio(element, name) {
+        function selectRadio(element, name, event) {
+            // Prevent double-firing if clicking directly on input
+            if (event && event.target.tagName === 'INPUT') return;
+            
             // Remove selected class from siblings
             const parent = element.parentElement;
             parent.querySelectorAll('.option-item').forEach(item => {
@@ -1449,7 +1450,10 @@
         }
         
         // Checkbox toggle
-        function toggleCheckbox(element, name) {
+        function toggleCheckbox(element, name, event) {
+            // Prevent double-firing if clicking directly on input
+            if (event && event.target.tagName === 'INPUT') return;
+            
             const checkbox = element.querySelector('input[type="checkbox"]');
             checkbox.checked = !checkbox.checked;
             element.classList.toggle('selected', checkbox.checked);
